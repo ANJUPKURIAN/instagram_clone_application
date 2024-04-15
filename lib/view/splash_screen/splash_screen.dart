@@ -3,8 +3,7 @@ import 'package:instagram_clone_application/core/constants/image_constants.dart'
 import 'package:instagram_clone_application/view/select_account_screen/select_account_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
+ const  SplashScreen({super.key});
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -12,10 +11,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3)).then((value) => {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) =>SelectAccountScreen()))
-        });
+    Future.delayed(Duration(seconds: 3)).then((value) {
+          Navigator.pushReplacement(
+            context,
+              MaterialPageRoute(
+                builder: (context) =>SelectAccountScreen(),
+                )
+                );
+        }
+        );
     super.initState();
   }
 
@@ -24,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          ImageConstant.appicon,
+          ImageConstants.appicon,
           scale: 1.5,
         ),
       ),

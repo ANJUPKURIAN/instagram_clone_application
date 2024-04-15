@@ -1,4 +1,4 @@
-class ImageConstant {
+class ImageConstants {
   static const String appicon = "assets/images/app_icon.png";
   static const String applogo = "assets/images/Instagram_text_logo.png";
   static const String profilepic = "assets/images/user.png";

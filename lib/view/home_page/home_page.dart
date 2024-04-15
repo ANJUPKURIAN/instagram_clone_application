@@ -1,119 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone_application/core/constants/color_constants.dart';
+import 'package:instagram_clone_application/view/dummy_db.dart';
+import 'package:instagram_clone_application/view/home_page/widgets/custom_posts_container.dart';
+import 'package:instagram_clone_application/view/home_page/widgets/custom_story_avatar';
 import 'package:instagram_clone_application/core/constants/image_constants.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int selectedindex = 0;
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        shadowColor: ColorConstant.primaryblack,
-        elevation: 0,
-        leading: Icon(Icons.photo_camera_outlined, size: 23),
-        title: Image.asset(
-          ImageConstant.applogo,
-          width: 105,
-          height: 30,
-        ),
+        appBar: AppBar(
+          leading: Icon(Icons.camera_alt_outlined),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Image.asset(
+              ImageConstants.applogo,
+              scale: 1.5,
+            ),
+          ),
         centerTitle: true,
-        actions: [
-          Image.asset(ImageConstant.igtvicon),
-          SizedBox(
-            width: 20,
-          ),
-          Image.asset(ImageConstant.messangericon),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Divider(
-            thickness: .2,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 70,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 10,
-                    padding: EdgeInsets.all(3),
-                    itemBuilder: (BuildContext context, int index) {
-                      return CircleAvatar(
-                        radius: 35,
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Divider(
-            thickness: 2,
-          ),
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-              ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("joshua_l"),
-                      Image.asset(ImageConstant.officialicon),
-                      Icon(Icons.more_horiz)
-                    ],
-                  ),
-                  Text("Tokyo,japan"),
-                ],
-              ),
-            ],
-          ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          Image.asset(
-            ImageConstant.rectangleimage,
-            height: 375,
-            width: 400,
-          ),
-          SizedBox(
-            height: 10,
-          ),
 
-          Row(
-            children: [
-              Icon(Icons.favorite_outline),
-              SizedBox(
-                width: 10,
-              ),
-              Icon(Icons.chat_bubble_outline),
-              SizedBox(
-                width: 10,
-              ),
-              Image.asset(ImageConstant.messangericon),
-              SizedBox(
-                width: 275,
-              ),
-              Icon(Icons.bookmark_outline),
-            ],
-          )
+         actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.video_settings)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.ios_share_rounded)),
         ],
       ),
-    );
-  }
+
+   ///#1 custom story section
+        body: SingleChildScrollView(
+          child: Column(
+          children: [
+             SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(
+                    DummyDb.storyList.length,
+                    (index) => CustomStoryAvatar (
+                          proPic: DummyDb.storyList[index]["proPic"],
+                          userName: DummyDb.storyList[index]["userName"],
+                          isLive: DummyDb.storyList[index]["isLive"],
+                        )),
+              ),
+
+            ),
+
+          // #2  custom_posts_containers
+
+
+         ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: DummyDb.homePostsList.length,
+                itemBuilder: (context, index) => CustomPostsContainer(
+                  userName: DummyDb.homePostsList[index]["userName"].toString(),
+                  location: DummyDb.homePostsList[index]["location"].toString(),
+                  postImagesList: DummyDb.homePostsList[index]["posts"],
+                  proPic: DummyDb.homePostsList[index]["proPic"].toString(),
+                  caption: DummyDb.homePostsList[index]["caption"].toString(),
+                  isLiked: DummyDb.homePostsList[index]["liked"],
+                ),
+              )
+            ],
+          ),
+    ));
+   }
 }
+
+
+
+
+
+
+
+

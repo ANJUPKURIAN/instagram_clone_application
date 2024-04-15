@@ -1,94 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_application/core/constants/color_constants.dart';
 import 'package:instagram_clone_application/core/constants/image_constants.dart';
-import 'package:instagram_clone_application/global_widgets/custom_Button.dart';
+import 'package:instagram_clone_application/global_widgets/custom_button.dart';
 import 'package:instagram_clone_application/view/login_screen/login_screen.dart';
 
-class SelectAccountScreen extends StatefulWidget {
-  const SelectAccountScreen({super.key});
+class SelectAccountScreen extends StatelessWidget {
+  SelectAccountScreen({super.key});
 
-  @override
-  State<SelectAccountScreen> createState() => _SelectAccountScreenState();
-}
-
-class _SelectAccountScreenState extends State<SelectAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(ImageConstant.applogo),
-              SizedBox(
-                height: 15,
-              ),
+              Image.asset(ImageConstants.applogo),
+              SizedBox(height: 50),
               CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage(ImageConstant.profilepic),
+                backgroundImage: NetworkImage(
+                    "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+                radius: 50,
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15),
               Text(
                 "Anju",
-                style:
-                    TextStyle(fontSize: 14, color: ColorConstant.primaryblack),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               CustomButton(
                 text: "Log in",
-                buttoncolor: ColorConstant.primaryblue,
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ));
                 },
               ),
+              SizedBox(height: 30),
               TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Switch accounts",
-                    style: TextStyle(
-                        color: ColorConstant.primaryblue,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500),
-                  )),
+                onPressed: () {},
+                child: Text(
+                  "Switch accounts",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorConstants.primaryblue),
+                ),
+              )
             ],
           ),
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(30),
+        padding: EdgeInsets.symmetric(vertical: 25),
         decoration: BoxDecoration(border: Border(top: BorderSide(width: .1))),
         child: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
-              text: "Don't have an account?",
+              text: "Dont have an account? ",
               style:
-                  TextStyle(color: ColorConstant.primaryblack.withOpacity(0.4)),
+                  TextStyle(color: ColorConstants.primaryblack.withOpacity(.4)),
               children: [
                 TextSpan(
-                    text: "Sign up",
-                    style: TextStyle(color: ColorConstant.primaryblack))
+                  text: "Sign Up",
+                  style: TextStyle(
+                      color: ColorConstants.primaryblack,
+                      fontWeight: FontWeight.bold),
+                )
               ]),
         ),
-        // child: Row(
-        //   children: [
-        //     Opacity(
-        //         opacity: 0.5,
-        //         child: Text(
-        //           "Don't have an account?",
-        //           style: TextStyle(
-        //             color: Colors.black,
-        //           ),
-        //         )),
-        //     Text("Sign up"),
-        //   ],
-        // ),
       ),
     );
   }

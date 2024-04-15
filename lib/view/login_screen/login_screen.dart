@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone_application/core/constants/color_constants.dart';
 import 'package:instagram_clone_application/core/constants/image_constants.dart';
 import 'package:instagram_clone_application/global_widgets/custom_button.dart';
-import 'package:instagram_clone_application/view/bottom_notification.dart';
-//import 'package:instagram_clone_application/view/home_page/home_page.dart';
+//import 'package:instagram_clone_application/view/bottom_notification.dart';
+import 'package:instagram_clone_application/view/bottom_nav_bar_screen/bottom_nav_bar_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -20,122 +20,170 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(ImageConstant.applogo),
+                //# instagram text logo
+                Image.asset(ImageConstants.applogo),
                 SizedBox(
-                  height: 30,
+                  height: 50,
                 ),
+                //# user name text field
+
+
                 TextFormField(
-                  onChanged: (value) {
-                    setState(() {});
-                  },
+                  // onChanged: (value) {
+                  //   setState(() {});
+                  // },
                   controller: nameController,
                   decoration: InputDecoration(
-                    fillColor: ColorConstant.primarygrey,
+                    fillColor: ColorConstants.lightGrey,
                     filled: true,
-                    labelText: 'username',
-                    labelStyle: TextStyle(
-                        color: ColorConstant.primaryblack.withOpacity(.4)),
-                    border: OutlineInputBorder(
+                    // labelText: 'username',
+                    // labelStyle: TextStyle(
+                    //     color: ColorConstant.primaryblack.withOpacity(.4)),
+                   enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: ColorConstant.primaryblack.withOpacity(.1))),
+                            color: ColorConstants.primaryblack.withOpacity(.1))),
+
+                   focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color:
+                                ColorConstants.primaryblack.withOpacity(.4))),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
                   onChanged: (value) {
                     setState(() {});
                   },
-                  controller: passwordController,
-                  obscureText: true,
-                  obscuringCharacter: "*",
-                  decoration: InputDecoration(
-                      fillColor: ColorConstant.primarygrey,
-                      filled: true,
-                      labelStyle: TextStyle(
-                          color: ColorConstant.primaryblack.withOpacity(.4)),
-                      labelText: 'password',
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color:
-                                  ColorConstant.primaryblack.withOpacity(.1)))),
                 ),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                        onPressed: () {}, child: Text("forgot password?"))),
+
+                  
+                
+                SizedBox(
+                  height: 15,
+                ),
+
+                TextFormField(
+                  // onChanged: (value) {
+                  //   setState(() {});
+                  // },
+                  controller: passwordController,
+                  onTapOutside: (event){
+                    FocusScope.of(context).unfocus();
+                  },
+                  obscureText: true,
+                  // obscuringCharacter: "*",
+                   decoration: InputDecoration(
+                      fillColor: ColorConstants.lightGrey,
+                      filled: true,
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color:
+                                ColorConstants.primaryblack.withOpacity(.1))),
+                        focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color:
+                                ColorConstants.primaryblack.withOpacity(.4))),
+                  ),
+                  onChanged: (value) {
+                    print(value);
+                    setState(() {});
+                  },
+                ),
+
+           SizedBox(height: 8),
+                // #4 forgot password text button
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Forgot password?",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: ColorConstants.primaryblue),
+                    ),
+                  ],
+                ),
+
+         SizedBox(height: 40),
+                // #5 Login  button
+
                 CustomButton(
-                  text: "log in",
-                  buttoncolor: nameController.text.isNotEmpty &&
+                  buttonColor: nameController.text.isNotEmpty &&
                           passwordController.text.isNotEmpty
-                      ? ColorConstant.primaryblue
-                      : ColorConstant.primaryblue.withOpacity(.4),
+                      ? ColorConstants.primaryblue
+                      : ColorConstants.primaryblue.withOpacity(.4),
+                  text: "Log in",
                   onTap: () {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder:(context) => BottomNavigation()),
-                        (Route) => false);
+                            builder: (context) => BottomNavBarScreen()),
+                        (route) => false);
                   },
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 30),
+                // #6 Login with facebook  button
+
                 TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(ImageConstant.facebookicon),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Log in with Facebook"),
-                      ],
-                    )),
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        indent: 10,
-                        endIndent: 33,
-                        thickness: 2,
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.facebook,
+                        color: ColorConstants.primaryblue,
                       ),
-                    ),
-                    Text("OR"),
-                    Expanded(
-                      child: Divider(
-                        indent: 33,
-                        endIndent: 10,
-                        thickness: 2,
+                      SizedBox(width: 15),
+                      Text(
+                        "Login with facebook",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: ColorConstants.primaryblue),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  height: 40,
-                ),
+
+                // #7 or section
+                SizedBox(height: 30),
+                Row(children: <Widget>[
+                  Expanded(
+                      child: Divider(
+                    endIndent: 30,
+                  )),
+                  Text("OR"),
+                  Expanded(
+                      child: Divider(
+                    indent: 30,
+                  )),
+                ]),
+                SizedBox(height: 30),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                      text: "Don't have an account?",
+                      text: "Dont have an account? ",
                       style: TextStyle(
-                          color: ColorConstant.primaryblack.withOpacity(0.4)),
+                          color: ColorConstants.primaryblack.withOpacity(.4)),
                       children: [
                         TextSpan(
-                            text: "Sign up",
-                            style: TextStyle(color: ColorConstant.primaryblue))
+                          text: "Sign Up",
+                          style: TextStyle(
+                              color: ColorConstants.primaryblue,
+                              fontWeight: FontWeight.w500),
+                        )
                       ]),
                 ),
               ],
@@ -144,16 +192,46 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(30),
-        decoration: BoxDecoration(border: Border(top: BorderSide(width: 0.3))),
-        child: RichText(
+        padding: EdgeInsets.symmetric(vertical: 25),
+        decoration: BoxDecoration(border: Border(top: BorderSide(width: .1))),
+        child: Text(
+          "Instagram or Facebook",
           textAlign: TextAlign.center,
-          text: TextSpan(
-              text: "Instagram or Facebook",
-              style:
-                  TextStyle(color: ColorConstant.primaryblack.withOpacity(.4))),
+          style: TextStyle(color: ColorConstants.primaryblack.withOpacity(.4)),
         ),
       ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     
     );
   }
 }
